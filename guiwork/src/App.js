@@ -1,5 +1,6 @@
 import './App.css';
 import Weather from './Weather'
+import Hourly from './Hourly'
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Weather/>
+        <Hourly/>
       </header>
     </div>
   );

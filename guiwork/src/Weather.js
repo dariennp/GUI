@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Hourly from './Hourly';
 
-const strftime= require('strftime')
 const Weather = () => {
 const [city, setCity] = useState('');
+const [hour,setHour] = useState(5)
+const [submittedCity,setSubmittedCity]=useState(null)
 const [weatherData, setWeatherData] = useState(null);
 
     const fetchData = async () => {
@@ -17,7 +19,7 @@ const [weatherData, setWeatherData] = useState(null);
     console.error(error);
 }
 };
-useEffect(() => {fetchData();}, []);
+//useEffect(() => {fetchData();}, []);
 
 const calcSunTime = (sunTime) => {
     const dateTime= new Date(sunTime*1000)
@@ -31,6 +33,7 @@ const handleInputChange = (e) => {
     const handleSubmit = (e) => {
     e.preventDefault();
     fetchData();
+    setSubmittedCity(city)
     };
     // Here, relevant weather data is displayed by using the weather data handed by the api, 
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
@@ -48,6 +51,7 @@ const handleInputChange = (e) => {
         {weatherData ? (
         <>
         <h2>{weatherData.name}</h2>
+        <button> 
         <p>Temperature: {weatherData.main.temp}°C</p>
         <p>Description: {weatherData.weather[0].description}</p>
         <p>Feels like : {weatherData.main.feels_like}°C</p>
@@ -55,9 +59,12 @@ const handleInputChange = (e) => {
         <p>Pressure : {weatherData.main.pressure}</p>
         <p>Wind: {weatherData.wind.speed}m/s - {weatherData.wind.deg}</p>
         <p>Sunrise/Sunset : {calcSunTime(weatherData.sys.sunrise)} / {calcSunTime(weatherData.sys.sunset)}</p> 
+        </button>
+        <Hourly city={submittedCity} hour={hour} key={`${submittedCity}-${hour}`} />
+        
         </>
         ) : (
-        <p>Loading weather data...</p>
+        <p></p>
         )}
         </div>
     );
