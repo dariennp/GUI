@@ -4,8 +4,9 @@ import Hourly from './Hourly';
 
 const Weather = () => {
 const [city, setCity] = useState('');
-const [hour,setHour] = useState(5)
-const [submittedCity,setSubmittedCity]=useState(null)
+const [hour,setHour] = useState(5);
+const [submittedCity,setSubmittedCity]=useState(null);
+const [mainMoreInfo,setMainMoreInfo] = useState(false)
 const [weatherData, setWeatherData] = useState(null);
 
     const fetchData = async () => {
@@ -21,20 +22,36 @@ const [weatherData, setWeatherData] = useState(null);
 };
 //useEffect(() => {fetchData();}, []);
 
-const calcSunTime = (sunTime) => {
-    const dateTime= new Date(sunTime*1000)
-    const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6)
-    return dateTimeFormatted
-}
+    const handleMainMoreInfo = (e) => {
+        setMainMoreInfo(!mainMoreInfo);
+    }
 
-const handleInputChange = (e) => {
-    setCity(e.target.value);
+
+    const calcSunTime = (sunTime) => {
+        const dateTime= new Date(sunTime*1000);
+        const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6);
+        return dateTimeFormatted;
+    }
+
+    const handleInputChange = (e) => {
+        setCity(e.target.value);
     };
+
     const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchData();
-    setSubmittedCity(city)
+        e.preventDefault();
+        console.log(Math.round(2.34))
+        fetchData();
+        setSubmittedCity(city);
     };
+
+    const handleNextHours = (e) => {
+        setHour(hour+5);
+    }
+
+    const handleBackHours = (e) => {
+        setHour(hour-5);
+    }
+
     // Here, relevant weather data is displayed by using the weather data handed by the api, 
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
     return (
@@ -51,16 +68,66 @@ const handleInputChange = (e) => {
         {weatherData ? (
         <>
         <h2>{weatherData.name}</h2>
-        <button> 
-        <p>Temperature: {weatherData.main.temp}°C</p>
-        <p>Description: {weatherData.weather[0].description}</p>
-        <p>Feels like : {weatherData.main.feels_like}°C</p>
-        <p>Humidity : {weatherData.main.humidity}%</p>
-        <p>Pressure : {weatherData.main.pressure}</p>
-        <p>Wind: {weatherData.wind.speed}m/s - {weatherData.wind.deg}</p>
-        <p>Sunrise/Sunset : {calcSunTime(weatherData.sys.sunrise)} / {calcSunTime(weatherData.sys.sunset)}</p> 
+        <button onClick={handleMainMoreInfo}>
+        {mainMoreInfo ? (
+            <>
+            <div id="mainTemp"> 
+                <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
+                <p>{Math.round(weatherData.main.temp)}°C </p>
+            </div>
+            <div id="mainHumidity">
+                <h3>Humidity :  </h3>
+                <p>{weatherData.main.humidity}%</p>
+            </div>
+            <div id="mainWind">
+                <h3> Wind: </h3> 
+                <p> {Math.round(weatherData.wind.speed)}m/s - {weatherData.wind.deg}</p>
+            </div>
+            <div id="mainPressure">
+                <h3>Pressure: </h3>
+                <p>{weatherData.main.pressure} hpa</p>
+            </div>
+            <div id="mainVis"> 
+                <h3>Visibility: </h3>
+                <p>{weatherData.visibility}</p>
+            </div>
+            <div id="mainCoverage">
+                <h3>Cloud Coverage: </h3>
+                <p> {weatherData.clouds.all}%</p>
+            </div>
+            <div id="mainSun">
+                <h3>Sunrise/Sunset: </h3>
+                <p> {calcSunTime(weatherData.sys.sunrise)} / {calcSunTime(weatherData.sys.sunset)}</p> 
+            </div>
+            </>
+        ) : (
+            <>
+            <div id="mainTemp"> 
+                <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
+                <p>{Math.round(weatherData.main.temp)}°C </p>
+            </div>
+            <div id="mainWind">
+                <h3> Wind: </h3> 
+                <p> {Math.round(weatherData.wind.speed)}m/s - {weatherData.wind.deg}</p>
+            </div>
+            <div id="mainPressure">
+                <h3>Pressure: </h3>
+                <p>{weatherData.main.pressure}</p>
+            </div>
+            <div id="mainVis"> 
+                <h3>Visibility: </h3>
+                <p>{weatherData.visibility}</p>
+            </div>
+            <div id="mainSun">
+                <h3>Sunrise/Sunset: </h3>
+                <p> {calcSunTime(weatherData.sys.sunrise)} / {calcSunTime(weatherData.sys.sunset)}</p> 
+            </div>
+            </> ) 
+        }
         </button>
-        <Hourly city={submittedCity} hour={hour} key={`${submittedCity}-${hour}`} />
+        {hour<25 && !mainMoreInfo ? (<button onClick={handleNextHours}> Next </button>) : (<> </>)}
+        {hour>5 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}
+        {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} key={`${submittedCity}-${hour}`}/>) : (<></>)}
         
         </>
         ) : (

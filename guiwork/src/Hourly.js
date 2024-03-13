@@ -5,6 +5,7 @@ import axios from 'axios';
 const Hourly = ({city,hour}) => {
 
 const [weatherData, setWeatherData] = useState(null);
+
     const fetchData = async () => {
     try {
     const response = await axios.get(
@@ -16,6 +17,11 @@ const [weatherData, setWeatherData] = useState(null);
     console.error(error);
     }
     };
+
+
+    const moreInfo = () => {
+
+    }
 
     useEffect(() => {
     fetchData();
@@ -30,11 +36,11 @@ const [weatherData, setWeatherData] = useState(null);
                 const item = weatherData.list[i];
                 weatherItems.push(
                   <button key={i}>
-                    <p>Time: {item.dt_txt}</p>
-                    <p>Temperature: {item.main.temp}°C</p>
-                    <p>Description: {item.weather[0].description}</p>
+                    <p> {(item.dt_txt).substr(10, 6)}</p>
+                    <p>Temperature: {Math.round(item.main.temp)}°C</p>
+                    <p>{item.weather[0].description.toUpperCase()}</p>
                     <p>Pressure : {item.main.pressure}</p>
-                    <p>Wind: {item.wind.speed}m/s</p>
+                    <p>Wind: {Math.round(item.wind.speed)}m/s</p>
                   </button>
                 );
               }
