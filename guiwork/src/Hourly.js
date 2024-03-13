@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const Hourly = ({city,hour,calcWindDir,calcTime}) => {
 
-const Hourly = ({city,hour}) => {
-
-const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState(null);
+    const [moreInfo,setMoreInfo] = useState(false);
+    const [moreInfoHour,setMoreInfoHour] = useState(null);
 
     const fetchData = async () => {
     try {
@@ -19,8 +20,9 @@ const [weatherData, setWeatherData] = useState(null);
     };
 
 
-    const moreInfo = () => {
-
+    const handleMoreInfo = (i) => {
+        setMoreInfo(!moreInfo);
+        setMoreInfoHour(i+ (hour-4));
     }
 
     useEffect(() => {
@@ -29,24 +31,33 @@ const [weatherData, setWeatherData] = useState(null);
 
     return (
         <div>
-          {weatherData ? (
-            (() => {
-              const weatherItems = [];
-              for (let i = hour-4; i < hour; i++) {
-                const item = weatherData.list[i];
-                weatherItems.push(
-                  <button key={i}>
-                    <p> {(item.dt_txt).substr(10, 6)}</p>
-                    <p>Temperature: {Math.round(item.main.temp)}°C</p>
-                    <p>{item.weather[0].description.toUpperCase()}</p>
-                    <p>Pressure : {item.main.pressure}</p>
-                    <p>Wind: {Math.round(item.wind.speed)}m/s</p>
-                  </button>
-                );
-              }
-              return weatherItems;
-            })()
-          ) : (<p></p> )}
+          {weatherData && !moreInfo ? (
+                <>
+                    {weatherData.list.slice(hour - 4, hour).map((item, i) => (
+                        <button onClick={() => handleMoreInfo(i)} key={i}>
+                            <p>{calcTime(item.dt,weatherData.city.timezone)}</p>
+                            <p>{Math.round(item.main.temp)}°C</p>
+                            <img id="weather-icon" src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="weather icon"/>
+                            <p>{Math.round(item.wind.speed)}m/s </p>
+                            <p>Visibility: {(item.visibility)/1000}km </p>
+                        </button>
+                    ))}
+                </>
+            ) : (<></>)}
+            { weatherData && moreInfo && (
+                <button onClick={() => handleMoreInfo(moreInfoHour)}>
+                            <p>{calcTime(weatherData.list[moreInfoHour].dt, weatherData.city.timezone)}</p>
+                            <p>{Math.round(weatherData.list[moreInfoHour].main.temp)}°C</p>
+                            <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.list[moreInfoHour].weather[0].icon}@2x.png`} alt="weather icon"/>
+                            <p>{weatherData.list[moreInfoHour].weather[0].description.toUpperCase()}</p>
+                            <p>{Math.round(weatherData.list[moreInfoHour].wind.speed)} m/s - {calcWindDir(weatherData.list[moreInfoHour].wind.deg)} </p>
+                            <p>Visibility: {(weatherData.list[moreInfoHour].visibility)/1000} km</p>
+                            <p>Cloud Coverage: {weatherData.list[moreInfoHour].clouds.all}%</p>
+                            <p>Air Pressure: {weatherData.list[moreInfoHour].main.pressure} hpa</p>
+                        </button>
+            )}
+
+            
         </div>
       );
       
