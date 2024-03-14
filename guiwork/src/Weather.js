@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Hourly from './Hourly';
 
+
+
 const Weather = () => {
 const [city, setCity] = useState('');
 const [hour,setHour] = useState(4);
@@ -20,6 +22,7 @@ const [weatherData, setWeatherData] = useState(null);
     console.error(error);
 }
 };
+
 //useEffect(() => {fetchData();}, []);
 
     const handleMainMoreInfo = (e) => {
@@ -67,6 +70,9 @@ const [weatherData, setWeatherData] = useState(null);
     const handleBackHours = (e) => {
         setHour(hour-4);
     }
+
+
+
 
     // Here, relevant weather data is displayed by using the weather data handed by the api, 
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
@@ -152,12 +158,13 @@ const [weatherData, setWeatherData] = useState(null);
         {hour>4 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}
         {hour<24 && !mainMoreInfo ? (<button onClick={handleNextHours}> Next </button>) : (<> </>)}
         {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
-        
+
         </>
         ) : (
         <p></p>
         )}
         </div>
+
     );
 };
 export default Weather;
