@@ -5,32 +5,33 @@ import Hourly from './Hourly';
 
     
 const Weather = () => {
-const [city, setCity] = useState('');
-const [hour,setHour] = useState(4);
-const [submittedCity,setSubmittedCity]=useState(null);
-const [mainMoreInfo,setMainMoreInfo] = useState(false)
-const [weatherData, setWeatherData] = useState(null);
+    const fetchWeatherData = async () => {
+        try {
+            // Get user's current position
+            navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            // Make a reverse geocoding request to get city from coordinates
+            const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
+            const city = response.data[0].name;
+            setCity(city);
+            if (!submittedCity) {
+            document.getElementById("submitButton").click();}
+        });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    useEffect(() => {
-        const fetchWeatherData = async () => {
-            try {
-                // Get user's current position
-                navigator.geolocation.getCurrentPosition(async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    // Make a reverse geocoding request to get city from coordinates
-                    const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
-                    const city = response.data[0].name;
-                    setCity(city);
-                    setSubmittedCity(city);
-                    fetchData();
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        };
 
-        fetchWeatherData();
-    }, []); // Empty dependency array to run only once on component mount
+    const [city, setCity] = useState('');
+    const [hour,setHour] = useState(4);
+    const [submittedCity,setSubmittedCity]=useState('');
+    const [mainMoreInfo,setMainMoreInfo] = useState(false)
+    const [weatherData, setWeatherData] = useState(null);
+
+    useEffect(() => {fetchWeatherData();},[]);
+    
+     // Empty dependency array to run only once on component mount
 
     const fetchData = async () => {
         try {
@@ -43,7 +44,7 @@ const [weatherData, setWeatherData] = useState(null);
         }
     };      
 
-useEffect(() => {fetchData();}, []);
+    
 
     const handleMainMoreInfo = (e) => {
         setMainMoreInfo(!mainMoreInfo);
@@ -64,10 +65,7 @@ useEffect(() => {fetchData();}, []);
 
 
     const calcTime = (time,timezone) => {
-        console.log("suntime",time)
-        console.log("timezone",timezone)
         const accountedTime=(time+timezone)*1000
-        console.log("Time:",time)
         const dateTime= new Date(accountedTime);
         const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6);
         return dateTimeFormatted;
@@ -98,14 +96,14 @@ useEffect(() => {fetchData();}, []);
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
     return (
         <div>
-        <form onSubmit={handleSubmit}>
+        <form id="weatherForm" onSubmit={handleSubmit}>
         <input
         type="text"
         placeholder="Enter city name"
         value={city}
         onChange={handleInputChange}
         />
-        <button type="submit">Get Weather</button>
+        <button id="submitButton" type="submit">Get Weather</button>
         </form>
         {weatherData ? (
         <>

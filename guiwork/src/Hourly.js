@@ -9,13 +9,13 @@ const Hourly = ({city,hour,calcWindDir,calcTime}) => {
 
     const fetchData = async () => {
     try {
-    const response = await axios.get(
-    `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&units=metric&appid=9bcd9188d56277f0f8720256e18549b3`
-    );
-    setWeatherData(response.data);
-    console.log(response.data); //You can see all the weather data in console log
+        const response = await axios.get(
+        `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${city}&units=metric&appid=9bcd9188d56277f0f8720256e18549b3`
+        );
+        setWeatherData(response.data);
+    //console.log(response.data); //You can see all the weather data in console log
     } catch (error) {
-    console.error(error);
+        console.error(error);
     }
     };
 
