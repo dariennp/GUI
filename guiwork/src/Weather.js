@@ -3,7 +3,7 @@ import axios from 'axios';
 import Hourly from './Hourly';
 
 
-
+    
 const Weather = () => {
 const [city, setCity] = useState('');
 const [hour,setHour] = useState(4);
@@ -11,19 +11,39 @@ const [submittedCity,setSubmittedCity]=useState(null);
 const [mainMoreInfo,setMainMoreInfo] = useState(false)
 const [weatherData, setWeatherData] = useState(null);
 
-    const fetchData = async () => {
-    try {
-    const response = await axios.get(
-    `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=9bcd9188d56277f0f8720256e18549b3`
-    );
-    setWeatherData(response.data);
-    console.log(response.data); //You can see all the weather data in console log
-    } catch (error) {
-    console.error(error);
-}
-};
+    useEffect(() => {
+        const fetchWeatherData = async () => {
+            try {
+                // Get user's current position
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    // Make a reverse geocoding request to get city from coordinates
+                    const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
+                    const city = response.data[0].name;
+                    setCity(city);
+                    setSubmittedCity(city);
+                    fetchData();
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-//useEffect(() => {fetchData();}, []);
+        fetchWeatherData();
+    }, []); // Empty dependency array to run only once on component mount
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(
+                `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=9bcd9188d56277f0f8720256e18549b3`
+            );
+            setWeatherData(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };      
+
+useEffect(() => {fetchData();}, []);
 
     const handleMainMoreInfo = (e) => {
         setMainMoreInfo(!mainMoreInfo);
