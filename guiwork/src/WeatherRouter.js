@@ -1,5 +1,6 @@
 import * as React from "react";
-import Weather from './Weather'
+import Weather from './Weather';
+import Map from './Map';
 
 import { createRoot } from "react-dom/client";
 import {
@@ -25,6 +26,7 @@ const WeatherRouter = createBrowserRouter([
     path: "Map",
     element: <div>
       <h1> Map</h1>
+      <Map/>
       <Link to="/">Weather</Link>
     </div>,
   },
