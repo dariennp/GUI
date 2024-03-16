@@ -10,7 +10,7 @@ const Weather = () => {
             // Get user's current position
             navigator.geolocation.getCurrentPosition(async (position) => {
             const { latitude, longitude } = position.coords;
-            // Make a reverse geocoding request to get city from coordinates
+            // get city from coordinates
             const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
             const city = response.data[0].name;
             setCity(city);
