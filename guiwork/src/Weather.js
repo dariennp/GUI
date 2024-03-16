@@ -1,147 +1,188 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./style.css";
+import Hourly from './Hourly';
 
+
+    
 const Weather = () => {
-const [city, setCity] = useState('');
-const [hour,setHour] = useState(4);
-const [submittedCity,setSubmittedCity]=useState(null);
-const [mainMoreInfo,setMainMoreInfo] = useState(false)
-const [weatherData, setWeatherData] = useState({});
-
-  const fetchData = async () => {
-  try {
-  const response = await axios.get(
-  `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=9bcd9188d56277f0f8720256e18549b3`
-  );
-  setWeatherData(response.data);
-  console.log(response.data); //You can see all the weather data in console log
-  } catch (error) {
-  console.error(error);
-}
-};
-
-  useEffect(() => {fetchData();}, []);
-
-  const handleMainMoreInfo = (e) => {
-      setMainMoreInfo(!mainMoreInfo);
-  }
-
-  const calcWindDir = (degrees) => {
-      if (degrees>340 || degrees<=20 ){return "N"}
-      else if  (degrees>20 && degrees <=60 ) {return "NE"}
-      else if (degrees>60 && degrees<=120) {return "E"}
-      else if  (degrees>120 && degrees <=160 ) {return "SE"}
-      else if (degrees>160 && degrees<=200) {return "S"}
-      else if  (degrees>200 && degrees <=240 ) {return "SW"}
-      else if (degrees>240 && degrees<=300) {return "W"}
-      else if  (degrees>300 && degrees <=340 ) {return "NW"}
-      else {return "N/A"}
-
-  }
+    const fetchWeatherData = async () => {
+        try {
+            // Get user's current position
+            navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            // get city from coordinates
+            const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
+            const city = response.data[0].name;
+            setCity(city);
+            if (!submittedCity) {
+            document.getElementById("submitButton").click();}
+        });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
-  const calcTime = (time,timezone) => {
-      console.log("suntime",time)
-      console.log("timezone",timezone)
-      const accountedTime=(time+timezone)*1000
-      console.log("Time:",time)
-      const dateTime= new Date(accountedTime);
-      const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6);
-      return dateTimeFormatted;
-  }
+    const [city, setCity] = useState('');
+    const [hour,setHour] = useState(4);
+    const [submittedCity,setSubmittedCity]=useState('');
+    const [mainMoreInfo,setMainMoreInfo] = useState(false)
+    const [weatherData, setWeatherData] = useState(null);
 
-  const handleInputChange = (e) => {
-      setCity(e.target.value);
-  };
+    useEffect(() => {fetchWeatherData();},[]);
+    
+     // Empty dependency array to run only once on component mount
 
-  const handleSubmit = (event) => {
-    if(event.key === 'Enter'){
-      event.preventDefault();
-      fetchData();
-      setSubmittedCity(city);
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(
+                `https://pro.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=9bcd9188d56277f0f8720256e18549b3`
+            );
+            setWeatherData(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };      
+
+    
+
+    const handleMainMoreInfo = (e) => {
+        setMainMoreInfo(!mainMoreInfo);
+    }
+
+    const calcWindDir = (degrees) => {
+        if (degrees>340 || degrees<=20 ){return "N"}
+        else if  (degrees>20 && degrees <=60 ) {return "NE"}
+        else if (degrees>60 && degrees<=120) {return "E"}
+        else if  (degrees>120 && degrees <=160 ) {return "SE"}
+        else if (degrees>160 && degrees<=200) {return "S"}
+        else if  (degrees>200 && degrees <=240 ) {return "SW"}
+        else if (degrees>240 && degrees<=300) {return "W"}
+        else if  (degrees>300 && degrees <=340 ) {return "NW"}
+        else {return "N/A"}
 
     }
-      
-  };
 
-  const handleNextHours = (e) => {
-      setHour(hour+4);
-  }
 
-  const handleBackHours = (e) => {
-      setHour(hour-4);
-  }
+    const calcTime = (time,timezone) => {
+        const accountedTime=(time+timezone)*1000
+        const dateTime= new Date(accountedTime);
+        const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6);
+        return dateTimeFormatted;
+    }
 
-  return (
-    <div className="weatherApp">
+    const handleInputChange = (e) => {
+        setCity(e.target.value);
+    };
 
-          <div className="desktop">
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        fetchData();
+        setSubmittedCity(city);
+    };
 
-            <div className="overlap-group-wrapper">
+    const handleNextHours = (e) => {
+        setHour(hour+4);
+    }
 
-              <div className="searchBox">
-                   
-                      <input
-                      value={city}
-                      onChange={handleInputChange}
-                      onKeyPress={handleSubmit}
-                      placeholder='Enter Location'
-                      type="text"/>
-              
-                </div>
-              <div className="overlap-group">
+    const handleBackHours = (e) => {
+        setHour(hour-4);
+    }
 
-          
-                <div className="frame" />
-                <img
-                  className="blue-sky-with-cloud"
-                  alt="Blue sky with cloud"
-                  src="https://c.animaapp.com/DV5Y4p2i/img/blue-sky-with-cloud-closeup.png" />
-                <div className="rectangle" />
-                <img className="img" alt="Rectangle" src="https://c.animaapp.com/DV5Y4p2i/img/rectangle-5.svg" />
-                <div className="div" />
-                <div className="wind_speed_units">km/h</div>
-                <div className="vis_units">km</div>
-                <div className="cc_units">%</div>
-                <div className="humidity_units">%</div>
-                <div className="wind_speed_data">{weatherData.wind ? <p>{Math.round(weatherData.wind.speed)}</p> : null}</div>
-                <div className="visibility_data">{(weatherData.visibility/1000)}</div>
-                <div className="cloud_coverage_data">{weatherData.clouds ? <p>{weatherData.clouds.all}</p> : null}</div>
-                <div className="weather_desc">{weatherData.weather ? <p>{weatherData.weather[0].description}</p> : null}</div>
-                <div className="wind_speed">Wind Speed</div>
 
-                <div className="visibility">Visibility</div>
-                <div className="cloud_coverage">Cloud Coverage</div>
-                <div className="weather_temp">{weatherData.main ? <p>{Math.round(weatherData.main.temp)}°C</p> : null}</div>
-                <div className="city_name">{weatherData.name}</div>
-                <img className="near_me" alt="Near me" src="https://c.animaapp.com/DV5Y4p2i/img/near-me@2x.png" />
-                <img className="visibility_icon" alt="Visibility" src="https://c.animaapp.com/DV5Y4p2i/img/visibility-1.svg" />
-                <div className="sunrise_sunset">Sunrise / Sunset</div>
-                <div className="humidity">Humidity</div>
-                <img className="air_icon" alt="Air" src="https://c.animaapp.com/DV5Y4p2i/img/air@2x.png" />
-                <div className="hpa">&nbsp;&nbsp;&nbsp;&nbsp;hPa</div>
-                <div className="air_pressure_data">{weatherData.main ? <p>{weatherData.main.pressure}</p> : null}</div>
-                <div className="air_pressure">Air Pressure</div>
-                <div className="sunrise_sunset_data">07:00&nbsp;&nbsp;/&nbsp;&nbsp;17:30</div>
-                <div className="humidity_data">{weatherData.main ? <p>{weatherData.main.humidity}</p> : null}</div>
-                <div className="rectangle-2" />
-                <div className="rectangle-4" />
-                <div className="rectangle-5" />
-                <div className="help">Help</div>
-                <div className="map">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Map</div>
-                <img className="line" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-1.svg" />
-                <img className="line-2" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-1.svg" />
-                <img className="line-3" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-2.svg" />
-                <img className="line-4" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-2.svg" />
-                <div className="warning">Pay Attention While Piloting</div>
-                <div className="wind_dir">{weatherData.wind ? <p>{calcWindDir(weatherData.wind.deg)}</p> : null}</div>
-                <div className="time">{weatherData.dt ? <p>{calcTime(weatherData.dt,weatherData.timezone)}</p> : null}</div>
-              </div>
+
+
+    // Here, relevant weather data is displayed by using the weather data handed by the api, 
+    // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
+    return (
+        <div>
+        <form id="weatherForm" onSubmit={handleSubmit}>
+        <input
+        type="text"
+        placeholder="Enter city name"
+        value={city}
+        onChange={handleInputChange}
+        />
+        <button id="submitButton" type="submit">Get Weather</button>
+        </form>
+        {weatherData ? (
+        <>
+        <h2>{weatherData.name}</h2>
+        <button onClick={handleMainMoreInfo}>
+        {mainMoreInfo ? (
+            <>
+            <div id="mainTemp"> 
+                <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
+                <p>{Math.round(weatherData.main.temp)}°C </p>
+                <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
             </div>
-          </div>
-    </div>
-  );
-};
+            <div id="mainTime">
+                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+            </div>
+            <div id="mainHumidity">
+                <h3>Humidity :  </h3>
+                <p>{weatherData.main.humidity}%</p>
+            </div>
+            <div id="mainWind">
+                <h3> Wind: </h3> 
+                <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+            </div>
+            <div id="mainPressure">
+                <h3>Pressure: </h3>
+                <p>{weatherData.main.pressure} hpa</p>
+            </div>
+            <div id="mainVis"> 
+                <h3>Visibility: </h3>
+                <p>{(weatherData.visibility)/1000}km</p>
+            </div>
+            <div id="mainCoverage">
+                <h3>Cloud Coverage: </h3>
+                <p> {weatherData.clouds.all}%</p>
+            </div>
+            <div id="mainSun">
+                <h3>Sunrise/Sunset: </h3>
+                <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+            </div>
+            </>
+        ) : (
+            <>
+            <div id="mainTemp"> 
+                <h3>{weatherData.weather[0].description} </h3>
+                <p>{Math.round(weatherData.main.temp)}°C </p>
+                <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
+            </div>
+            <div id="mainTime">
+                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+            </div>
+            <div id="mainWind">
+                <h3> Wind: </h3> 
+                <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+            </div>
+            <div id="mainPressure">
+                <h3>Pressure: </h3>
+                <p>{weatherData.main.pressure}</p>
+            </div>
+            <div id="mainVis"> 
+                <h3>Visibility: </h3>
+                <p>{(weatherData.visibility)/1000} km</p>
+            </div>
+            <div id="mainSun">
+                <h3>Sunrise/Sunset: </h3>
+                <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+            </div>
+            </> ) 
+        }
+        </button>
+        {hour>4 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}
+        {hour<24 && !mainMoreInfo ? (<button onClick={handleNextHours}> Next </button>) : (<> </>)}
+        {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
+        </>
+        ) : (
+        <p></p>
+        )}
+        </div>
+
+    );
+};
 export default Weather;
