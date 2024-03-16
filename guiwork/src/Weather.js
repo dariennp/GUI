@@ -110,67 +110,85 @@ const Weather = () => {
         <h2>{weatherData.name}</h2>
         <button onClick={handleMainMoreInfo}>
         {mainMoreInfo ? (
-            <>
-            <div id="mainTemp"> 
-                <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
-                <p>{Math.round(weatherData.main.temp)}°C </p>
-                <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
+            <div id="mainFlex">
+            <div id="mainTemp" > 
+                <div> 
+                  <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
+                </div>
+                <div>
+                  <p>{Math.round(weatherData.main.temp)}°C </p>
+                </div>
+                <div>
+                  <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
+                </div>
+              <div id="mainTime" >
+                  <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+              </div>
             </div>
-            <div id="mainTime">
-                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+
+            <div id="mainOtherContent">
+              <div id="mainHumidity" className='mFlex'>
+                  <h3>Humidity :  </h3>
+                  <p>{weatherData.main.humidity}%</p>
+              </div>
+              <div id="mainWind" className='mFlex'>
+                  <h3> Wind: </h3> 
+                  <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+              </div>
+              <div id="mainPressure" className='mFlex'>
+                  <h3>Pressure: </h3>
+                  <p>{weatherData.main.pressure} hpa</p>
+              </div>
+              <div id="mainVis" className='mFlex'> 
+                  <h3>Visibility: </h3>
+                  <p>{(weatherData.visibility)/1000}km</p>
+              </div>
+              <div id="mainCoverage" className='mFlex'>
+                  <h3>Cloud Coverage: </h3>
+                  <p> {weatherData.clouds.all}%</p>
+              </div>
+              <div id="mainSun" className='mFlex'>
+                  <h3>Sunrise/Sunset: </h3>
+                  <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+              </div>
             </div>
-            <div id="mainHumidity">
-                <h3>Humidity :  </h3>
-                <p>{weatherData.main.humidity}%</p>
             </div>
-            <div id="mainWind">
-                <h3> Wind: </h3> 
-                <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
-            </div>
-            <div id="mainPressure">
-                <h3>Pressure: </h3>
-                <p>{weatherData.main.pressure} hpa</p>
-            </div>
-            <div id="mainVis"> 
-                <h3>Visibility: </h3>
-                <p>{(weatherData.visibility)/1000}km</p>
-            </div>
-            <div id="mainCoverage">
-                <h3>Cloud Coverage: </h3>
-                <p> {weatherData.clouds.all}%</p>
-            </div>
-            <div id="mainSun">
-                <h3>Sunrise/Sunset: </h3>
-                <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
-            </div>
-            </>
         ) : (
-            <>
-            <div id="mainTemp"> 
-                <h3>{weatherData.weather[0].description} </h3>
-                <p>{Math.round(weatherData.main.temp)}°C </p>
-                <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
+            <div id="mainFlex">
+            <div id="mainTemp" > 
+                <div> 
+                  <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
+                </div>
+                <div>
+                  <p>{Math.round(weatherData.main.temp)}°C </p>
+                </div>
+                <div>
+                  <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
+                </div>
+              <div id="mainTime" >
+                  <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+              </div>
             </div>
-            <div id="mainTime">
-                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+            
+            <div id="mainOtherContent">
+              <div id="mainWind" className='mFlex'>
+                  <h3> Wind: </h3> 
+                  <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+              </div>
+              <div id="mainPressure" className='mFlex'>
+                  <h3>Pressure: </h3>
+                  <p>{weatherData.main.pressure} hpa</p>
+              </div>
+              <div id="mainVis" className='mFlex'> 
+                  <h3>Visibility: </h3>
+                  <p>{(weatherData.visibility)/1000}km</p>
+              </div>
+              <div id="mainSun" className='mFlex'>
+                  <h3>Sunrise/Sunset: </h3>
+                  <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+              </div>
             </div>
-            <div id="mainWind">
-                <h3> Wind: </h3> 
-                <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
-            </div>
-            <div id="mainPressure">
-                <h3>Pressure: </h3>
-                <p>{weatherData.main.pressure}</p>
-            </div>
-            <div id="mainVis"> 
-                <h3>Visibility: </h3>
-                <p>{(weatherData.visibility)/1000} km</p>
-            </div>
-            <div id="mainSun">
-                <h3>Sunrise/Sunset: </h3>
-                <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
-            </div>
-            </> ) 
+            </div> )
         }
         </button>
         {hour>4 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}

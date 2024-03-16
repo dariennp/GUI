@@ -1,5 +1,29 @@
-.App {
-  
+#moreInfoMainButton{
+  height: 10em;
+  width: 20em;
+}
+
+#mainFlex {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+}
+
+#mainTemp {
+  flex-basis: calc(50% - 10px); /* Set the initial width to half of the container width minus margin */
+  margin-right: 10px; /* Add margin to create space between mainTemp and otherContent */
+  display: flex;
+  flex-direction: column;
+}
+
+#mainOtherContent {
+  flex-basis: calc(50% - 10px); /* Set the initial width to half of the container width minus margin */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap if needed */
+}
+
+#mainOtherContent > div {
+  flex: 1 0 33.33%; /* Each item occupies one-third of the available width */
+  margin: 5px; /* Add margin to create space between items */
 }
 
 p{
