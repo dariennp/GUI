@@ -1,0 +1,529 @@
+
+
+.weatherApp{
+    background-image: url("https://c.animaapp.com/DV5Y4p2i/img/blue-sky-with-cloud-closeup.png");
+    height: 100vh;
+  }
+  
+  .desktop{
+    background-image: url("https://cdn.animaapp.com/projects/65f2135bba400ee4bb1c214d/releases/65f5fbca45d9e02830884e38/img/rectangle-5.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    background-position-y: 2rem;
+    height: 100%;
+    display: grid;
+    grid-template-rows:  60% 25% 10%;
+  
+  
+  }
+  
+  
+  .rectangle_2{
+    width: 1384px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  
+  
+  
+  
+  .container1{
+    grid-column-start: 1;
+    margin-top: 2rem;
+    color: white;
+    display: grid;
+    grid-template-columns: 35% 32% 28%;
+    grid-template-rows: 20% 16% 16% 16% 16% 16%;
+    margin-top: 3rem;
+  
+  }
+  
+  .container1 .line_1{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+    padding-left: 4rem;
+  }
+  
+  .container1 .line_2{
+    grid-column: 3 / 3;
+    grid-row: 3 / 3;
+    padding-left: 2rem;
+  }
+  
+  
+  .container1 .container1_grid1{
+    display: grid;
+    grid-template-columns: 75% 25%;
+  
+  }
+  
+  
+  .container1 .city_name{
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  
+  }
+  
+  .container1 .wind_speed{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  
+  }
+  
+  .container1 .weather_desc{
+    font-size: 2.25rem;
+    text-transform: capitalize;
+    text-align: center;
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  
+  }
+  
+  .container1 .air_pressure{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 3 / 3;
+    grid-row: 1 / 1;
+  
+  }
+  
+  .container1 .container1_grid1{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+    text-align: center;
+    grid-template-columns: 50% 50%;
+  
+  }
+  
+  
+  .container1_grid1 .wind_speed_data{
+    font-size: 1.5rem;
+    grid-column: 1 / 1;
+    text-align: right;
+  }
+  
+  .container1_grid1 .wind_dir{
+    font-size: 1.5rem;
+    grid-column: 2 / 2;
+    text-align: left  ;
+  }
+  
+  .container1 .air_pressure_data{
+    font-size: 1.5rem;
+    text-align: center;
+    grid-column: 3 / 3;
+    grid-row: 2 / 2;
+  
+  }
+  
+  .container1 .weather_temp{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  
+  }
+  
+  .container1 .visibility{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 2 / 2;
+    grid-row: 4 / 4;
+  
+  }
+  
+  .container1 .sunrise_sunset{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 3 / 3;
+    grid-row: 4 / 4;
+  
+  }
+  
+  .container1 .visibility_data{
+    font-size: 1.5rem;
+    text-align: center;
+    grid-column: 2 / 2;
+    grid-row: 5 / 5;
+  
+  }
+  
+  .container1 .sunrise_sunset_data{
+    font-size: 1.5rem;
+    text-align: center;
+    grid-column: 3 / 3;
+    grid-row: 5 / 5;
+  
+  }
+  
+  .container1 .time{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 1 / 1;
+    grid-row: 5 / 5;
+  
+  }
+  
+  .container2{
+    box-sizing: border-box;
+    position: absolute;
+    width: 86rem;
+    height: 13rem;
+    left: 2rem;
+    top: 30rem;
+    background: #8B8B8B;
+    mix-blend-mode: normal;
+    border: 0.25rem solid #8B8B8B;
+    box-shadow: 15px 15px 4px rgba(132, 132, 132, 0.5);
+    border-radius: 2.5rem;
+  
+    background-image: url("./image3.png");
+    background-size: 20%;
+  
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+  
+    color: white;
+    text-align: center;
+    padding-top: 1rem;
+  
+  
+  }
+  
+  .container2 .container2_grid1{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 33% 33% 33%;
+  }
+  
+  .container2_grid1 .grid1_icon1{
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid1 .grid1_icon2{
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid1 .grid1_icon3{
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  }
+  
+  .container2_grid1 .grid1_data1{
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid1 .grid1_data2{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid1 .grid1_data3{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+  }
+  
+  .container2 .container2_grid2{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 33% 33% 33%;
+  
+  }
+  
+  .container2_grid2 .grid2_icon1{
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid2 .grid2_icon2{
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid2 .grid2_icon3{
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  }
+  
+  .container2_grid2 .grid2_data1{
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid2 .grid2_data2{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid2 .grid2_data3{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+  }
+  
+  .container2 .container2_grid3{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 33% 33% 33%;
+  
+  }
+  
+  .container2_grid3 .grid3_icon1{
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid2 .grid2_icon2{
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid3 .grid3_icon3{
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  }
+  
+  .container2_grid3 .grid3_data1{
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid3 .grid3_data2{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid3 .grid3_data3{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+  }
+  
+  .container2 .container2_grid4{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 33% 33% 33%;
+  
+  }
+  
+  .container2_grid4 .grid4_icon1{
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid4 .grid4_icon2{
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid4 .grid4_icon3{
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  }
+  
+  .container2_grid4 .grid4_data1{
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid4 .grid4_data2{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid4 .grid2_data4{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+  }
+  
+  .container2 .container2_grid5{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 33% 33% 33%;
+  
+  }
+  
+  .container2_grid5 .grid5_icon1{
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid5 .grid5_icon2{
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid5 .grid5_icon3{
+    grid-column: 1 / 1;
+    grid-row: 3 / 3;
+  }
+  
+  .container2_grid5 .grid5_data1{
+    grid-column: 2 / 2;
+    grid-row: 1 / 1;
+  }
+  
+  .container2_grid5 .grid5_data2{
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+  }
+  
+  .container2_grid5 .grid5_data3{
+    grid-column: 2 / 2;
+    grid-row: 3 / 3;
+  }
+  
+  
+  .container3{
+    grid-row: 3 / 3;
+    padding-top: 1rem;
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .container3 .searchBox{
+    flex-basis: 40%;
+  
+  }
+  
+  .desktop .searchBox input{
+    background-color: #363636;
+    font-size: 4rem;
+    background: #363636;
+    border-radius: 1.5rem;  
+    box-shadow: none;
+    background: #363636;
+    margin-left: 2rem;
+  
+  }
+  
+  
+  .container3 .help{
+    background-color: #363636;
+    font-size: 4rem;
+    background: #363636;
+    border-radius: 1.5rem;  
+    box-shadow: none;
+    flex-basis: 22%;
+    height: fit-content;
+  
+  
+  }
+  
+  .container3 .map{
+    background-color: #363636;
+    font-size: 4rem;
+    background: #363636;
+    border-radius: 1.5rem;  
+    box-shadow: none;
+    flex-basis: 22%;
+    height: fit-content;
+  
+  }
+  
+  /*
+  .container4 .visibility_icon{
+    padding-left: 35rem;
+  
+  }
+  <img className="visibility_icon" alt="Visibility" src="https://c.animaapp.com/DV5Y4p2i/img/visibility-1.svg" />
+  
+  */
+  
+  
+  .container10  {
+    position: absolute;
+    width: 24px;
+    height: 364px;
+    top: 55px;
+    left: 455px;
+    background-color: #7a7a7a;
+    border-radius: 45px;
+    border: 2px solid;
+    border-color: #000000;
+  }
+  
+  
+  
+  
+  /*
+                    <div className="weather_desc">{weatherData.weather ? <p>{weatherData.weather[0].description}</p> : null}</div>
+                    <div className="container1_grid1">
+                      <div className="wind_speed_data">{weatherData.wind ? <p>{Math.round(weatherData.wind.speed)} kmh</p> : null} </div>
+                      <div className="wind_dir">{weatherData.wind ? <p>{calcWindDir(weatherData.wind.deg)}</p> : null}</div>
+                    </div>
+                    <div className="air_pressure_data">976{weatherData.main ? <p>{weatherData.main.pressure} hPa</p> : null}</div>
+                    <img className="line_1" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-1.svg" />
+                    <img className="line_2" alt="Line" src="https://c.animaapp.com/DV5Y4p2i/img/line-1.svg" />
+                    <div className="empty"></div>
+                    <div className="sunrise_sunset">Sunrise / Sunset</div>
+                    <div className="time">{weatherData.dt ? <p>{calcTime(weatherData.dt,weatherData.timezone)}</p> : null}</div>
+                    <div className="visibility_data">{(weatherData.visibility/1000)}km</div>
+                    <div className="sunrise_sunset_data">07:00&nbsp;&nbsp;/&nbsp;&nbsp;17:30</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                  <div className="rectangle-2" />
+                  <div className="rectangle-4" />
+                  <div className="rectangle-5" />
+                  <div className="help">Help</div>
+                  <div className="map">Map</div>
+         
+                  <div className="text-wrapper-23">Pay Attention While Piloting</div>
+  
+  
+  
+                  .desktop .searchBox input{
+    display: flex;
+    background-color: #363636;
+    font-size: 4rem;
+    background: #363636;
+    border-radius: 24px;  
+    box-shadow: none;
+    background: #363636;
+    padding: 10px;
+    width: 30rem;
+  
+  
+         <div className="container9">
+                    <div className="warning">Pay Attention While Piloting</div>
+                  </div>
+  
+  
+  
+  
+  
+  
+                    <center>
+                      <img className="box_2" src={box_1}/> 
+                    </center>
+                    <center>
+                      <img className="box_3" src={box_1}/> 
+                    </center>
+                    <center>
+                      <img className="box_4" src={box_1}/> 
+                    </center>
+                    <center>
+                      <img className="box_5" src={box_1}/> 
+                    </center>
+                    
+  
+  
+  
+  }
+  */
