@@ -1,32 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import Weather from './Weather';
 import Map from './Map';
 import HelpPage from './HelpPage';
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
-import './WeatherRouter.css'
+import { createBrowserRouter, Link } from "react-router-dom";
+import './WeatherRouter.css';
 
 const WeatherRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
+      <div className="container">
         <h1>Pilot Weather App</h1>
         <Weather />
-        <div>
-          <Link to="Map">Map</Link>
+        <div className="buttons">
+          <div>
+            <Link to="Map">Map</Link>
+          </div>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+          <div>
+            <Link to="HelpPage">Help</Link>
+          </div>
         </div>
-        <div>
-          <Link to="HelpPage">Help</Link>
-        </div>
-        <button onClick={toggleTheme}>Toggle Theme</button>
+        <h2>Pay Attention While Piloting</h2>
       </div>
     ),
   },
   {
     path: "Map",
     element: (
-      <div>
+      <div className="container">
         <h1>Map</h1>
         <Map />
         <Link to="/">Weather</Link>
@@ -36,7 +38,7 @@ const WeatherRouter = createBrowserRouter([
   {
     path: "HelpPage",
     element: (
-      <div>
+      <div className="container">
         <HelpPage />
         <Link to="/">Weather</Link>
       </div>
@@ -50,9 +52,11 @@ function toggleTheme() {
   const currentTheme = root.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   root.setAttribute("data-theme", newTheme);
+
+  // Toggle between light and dark background classes
+  const body = document.body;
+  body.classList.toggle("light-background", newTheme === "light");
+  body.classList.toggle("dark-background", newTheme === "dark");
 }
-
-
-//createRoot(document.getElementById("root")).render(<RouterProvider router={WeatherRouter} />);
 
 export default WeatherRouter;
