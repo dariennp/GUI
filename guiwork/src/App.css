@@ -29,3 +29,23 @@
 p{
   color:rgb(0, 0, 0) ;
 }
+
+
+.hourly-button:hover {
+  background-color: #e0e0e0;
+}
+
+.hourly-button.expanded {
+  display: flex;
+  max-height: 10rem;
+  width: 40rem;
+}
+.hourly_col{
+  flex: 1 0 33.33%;
+  align-self: center;
+}
+
+.hourly_icon{
+  max-width: 3rem;
+}
+
