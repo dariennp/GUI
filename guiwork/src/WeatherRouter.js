@@ -10,21 +10,20 @@ const WeatherRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
-      <header style={{ width: '100%' }} className="App-header">
+      <div className="container">
         <h1>Pilot Weather App</h1>
         <Weather />
-        <div>
-          <Link to="Map">Map</Link>
+        <div className="buttons">
+          <div>
+            <Link to="Map">Map</Link>
+          </div>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+          <div>
+            <Link to="HelpPage">Help</Link>
+          </div>
         </div>
-        <div>
-          <Link to="HelpPage">Help</Link>
-        </div>
-        <button onClick={toggleTheme}>Toggle Theme</button>
-      </header>
+        <h2>Pay Attention While Piloting</h2>
       </div>
-
-      
     ),
   },
   {
@@ -55,6 +54,11 @@ function toggleTheme() {
   const currentTheme = root.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   root.setAttribute("data-theme", newTheme);
+
+  // Toggle between light and dark background classes
+  const body = document.body;
+  body.classList.toggle("light-background", newTheme === "light");
+  body.classList.toggle("dark-background", newTheme === "dark");
 }
 
 
