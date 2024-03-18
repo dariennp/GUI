@@ -11,6 +11,7 @@ const WeatherRouter = createBrowserRouter([
     path: "/",
     element: (
       <div>
+      <header style={{ width: '100%' }} className="App-header">
         <h1>Pilot Weather App</h1>
         <Weather />
         <div>
@@ -20,16 +21,20 @@ const WeatherRouter = createBrowserRouter([
           <Link to="HelpPage">Help</Link>
         </div>
         <button onClick={toggleTheme}>Toggle Theme</button>
+      </header>
       </div>
+
+      
     ),
   },
   {
     path: "Map",
     element: (
-      <div>
-        <h1>Map</h1>
+      <div style={{ width: '100%' }}>
+        
         <Map />
         <Link to="/">Weather</Link>
+        <button onClick={toggleTheme}>Toggle Theme</button>
       </div>
     ),
   },

@@ -12,11 +12,7 @@ import {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <RouterProvider router={WeatherRouter}></RouterProvider>
-      </header>
-    </div>
+    <RouterProvider router={WeatherRouter}></RouterProvider>
   );
 }
 

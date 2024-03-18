@@ -118,5 +118,7 @@ margin-bottom: 10px;
 }
 }
 
+@import "~leaflet/dist/leaflet.css";
+
 /*This css file changes the layout of the main weather screen, giving it a more professional feel, such as changing colour during theme (light/dark) change or by allowing 
 the mouse pointer to hover over elements*/
