@@ -18,7 +18,7 @@ const WeatherRouter = createBrowserRouter([
           <div>
             <Link to="Map">Map</Link>
           </div>
-          <button onClick={toggleTheme}>Toggle Theme</button>
+          <button className="opposite_buttons" onClick={toggleTheme}>Toggle Theme</button>
           <div>
             <Link to="HelpPage">Help</Link>
           </div>
@@ -35,7 +35,7 @@ const WeatherRouter = createBrowserRouter([
         
         <Map />
         <Link to="/">Weather</Link>
-        <button onClick={toggleTheme}>Toggle Theme</button>
+        <button className="opposite_buttons" onClick={toggleTheme}>Toggle Theme</button>
       </div>
     ),
   },

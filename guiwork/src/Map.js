@@ -25,16 +25,16 @@ function LeafletMap() {
                 />
             </MapContainer>
             <div>
-                <button onClick={() => setMode("temp_new")} >
+                <button className="opposite_buttons" onClick={() => setMode("temp_new")} >
                     Temperature
                 </button>
-                <button onClick={() => setMode("clouds_new")} >
+                <button className="opposite_buttons" onClick={() => setMode("clouds_new")} >
                     Clouds
                 </button>
-                <button onClick={() => setMode("precipitation_new")} >
+                <button className="opposite_buttons" onClick={() => setMode("precipitation_new")} >
                     Precipitation
                 </button>
-                <button onClick={() => setMode("wind_new")}>
+                <button className="opposite_buttons" onClick={() => setMode("wind_new")}>
                     Wind Speed
                 </button>
             </div>
