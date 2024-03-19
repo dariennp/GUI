@@ -96,6 +96,7 @@ const Weather = () => {
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
     return (
         <div>
+        <div className="header">
         <form id="weatherForm" onSubmit={handleSubmit}>
         <input
         type="text"
@@ -105,9 +106,12 @@ const Weather = () => {
         />
         <button id="submitButton" type="submit">Get Weather</button>
         </form>
+        
+        </div>
         {weatherData ? (
         <>
-        <h2>{weatherData.name}</h2>
+        <h2 className="container1">{weatherData.name}</h2>
+        <div className="container">
         <button onClick={handleMainMoreInfo}>
         {mainMoreInfo ? (
             <div id="mainFlex">
@@ -191,8 +195,11 @@ const Weather = () => {
             </div> )
         }
         </button>
+        </div>
+        <div className="back_next_buttons">
         {hour>4 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}
         {hour<24 && !mainMoreInfo ? (<button onClick={handleNextHours}> Next </button>) : (<> </>)}
+        </div>
         {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
         </>

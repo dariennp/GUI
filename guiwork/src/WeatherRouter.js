@@ -10,7 +10,8 @@ const WeatherRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div className="container">
+      <div>
+        <div>
         <h1>Pilot Weather App</h1>
         <Weather />
         <div className="buttons">
@@ -23,6 +24,7 @@ const WeatherRouter = createBrowserRouter([
           </div>
         </div>
         <h2>Pay Attention While Piloting</h2>
+        </div>
       </div>
     ),
   },

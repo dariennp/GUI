@@ -28,7 +28,7 @@ const Hourly = ({ city, hour, calcWindDir, calcTime }) => {
     };
 
     return (
-        <div>
+        <div className="hourly_container">
             {weatherData && !moreInfo ? (
                 <>
                     {weatherData.list.slice(hour - 4, hour).map((item, i) => (
@@ -36,6 +36,7 @@ const Hourly = ({ city, hour, calcWindDir, calcTime }) => {
                             <p>{calcTime(item.dt, weatherData.city.timezone)}</p>
                             <p>{Math.round(item.main.temp)}°C</p>
                             <img
+                                className="hourly_icon"
                                 id="weather-icon"
                                 src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                                 alt="weather icon"
@@ -58,7 +59,7 @@ const Hourly = ({ city, hour, calcWindDir, calcTime }) => {
                         </div>
                         <div className="hourly_col">
                             <p>{calcTime(weatherData.list[moreInfoHour].dt, weatherData.city.timezone)}</p>
-                            <img className="hourly_icon"
+                            <img className="hourly_icon1"
                                 id="weather-icon"
                                 src={`https://openweathermap.org/img/wn/${weatherData.list[moreInfoHour].weather[0].icon}@2x.png`}
                                 alt="weather icon"
