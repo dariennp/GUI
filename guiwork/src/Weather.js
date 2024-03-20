@@ -104,7 +104,7 @@ const Weather = () => {
         value={city}
         onChange={handleInputChange}
         />
-        <button id="submitButton" type="submit">Get Weather</button>
+        <button className="opposite_buttons" id="submitButton" type="submit">Get Weather</button>
         </form>
         
         </div>
@@ -112,7 +112,7 @@ const Weather = () => {
         <>
         <h2 className="container1">{weatherData.name}</h2>
         <div className="container">
-        <button onClick={handleMainMoreInfo}>
+        <button className="main-button" onClick={handleMainMoreInfo}>
         {mainMoreInfo ? (
             <div id="mainFlex">
             <div id="mainTemp" > 
@@ -197,8 +197,8 @@ const Weather = () => {
         </button>
         </div>
         <div className="back_next_buttons">
-        {hour>4 && !mainMoreInfo ? (<button onClick={handleBackHours}> Back </button>) : (<> </>)}
-        {hour<24 && !mainMoreInfo ? (<button onClick={handleNextHours}> Next </button>) : (<> </>)}
+        {hour>4 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleBackHours}> Back </button>) : (<> </>)}
+        {hour<24 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleNextHours}> Next </button>) : (<> </>)}
         </div>
         {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
