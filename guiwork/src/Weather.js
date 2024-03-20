@@ -95,7 +95,7 @@ const Weather = () => {
     // Here, relevant weather data is displayed by using the weather data handed by the api, 
     // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
     return (
-        <div>
+        <div id="mainBoxWeather">
         <div className="header">
         <form id="weatherForm" onSubmit={handleSubmit}>
         <input
@@ -120,7 +120,7 @@ const Weather = () => {
                   <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
                 </div>
                 <div>
-                  <p>{Math.round(weatherData.main.temp)}°C </p>
+                  <p class="mainFlexP">{Math.round(weatherData.main.temp)}°C </p>
                 </div>
                 <div>
                   <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
@@ -129,31 +129,31 @@ const Weather = () => {
                   <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
               </div>
             </div>
-
+            <hr id="mainSeperate"></hr>
             <div id="mainOtherContent">
-              <div id="mainHumidity" className='mFlex'>
-                  <h3>Humidity :  </h3>
-                  <p>{weatherData.main.humidity}%</p>
-              </div>
               <div id="mainWind" className='mFlex'>
                   <h3> Wind: </h3> 
-                  <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+                  <p class="mainFlexP"> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
               </div>
               <div id="mainPressure" className='mFlex'>
                   <h3>Pressure: </h3>
-                  <p>{weatherData.main.pressure} hpa</p>
+                  <p class="mainFlexP">{weatherData.main.pressure} hpa</p>
               </div>
               <div id="mainVis" className='mFlex'> 
                   <h3>Visibility: </h3>
-                  <p>{(weatherData.visibility)/1000}km</p>
-              </div>
-              <div id="mainCoverage" className='mFlex'>
-                  <h3>Cloud Coverage: </h3>
-                  <p> {weatherData.clouds.all}%</p>
+                  <p class="mainFlexP">{(weatherData.visibility)/1000}km</p>
               </div>
               <div id="mainSun" className='mFlex'>
                   <h3>Sunrise/Sunset: </h3>
-                  <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+                  <p class="mainFlexP"> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+              </div>
+              <div id="mainCoverage" className='mFlex'>
+                  <h3>Cloud Coverage: </h3>
+                  <p class="mainFlexP"> {weatherData.clouds.all}%</p>
+              </div>
+              <div id="mainHumidity" className='mFlex'>
+                  <h3>Humidity :  </h3>
+                  <p class="mainFlexP">{weatherData.main.humidity}%</p>
               </div>
             </div>
             </div>
@@ -164,7 +164,7 @@ const Weather = () => {
                   <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
                 </div>
                 <div>
-                  <p>{Math.round(weatherData.main.temp)}°C </p>
+                  <p class="mainFlexP">{Math.round(weatherData.main.temp)}°C </p>
                 </div>
                 <div>
                   <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
@@ -173,33 +173,35 @@ const Weather = () => {
                   <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
               </div>
             </div>
-            
+            <hr id="mainSeperate"></hr>
             <div id="mainOtherContent">
               <div id="mainWind" className='mFlex'>
                   <h3> Wind: </h3> 
-                  <p> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
+                  <p class="mainFlexP"> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
               </div>
               <div id="mainPressure" className='mFlex'>
                   <h3>Pressure: </h3>
-                  <p>{weatherData.main.pressure} hpa</p>
+                  <p class="mainFlexP">{weatherData.main.pressure} hpa</p>
               </div>
               <div id="mainVis" className='mFlex'> 
-                  <h3>Visibility: </h3>
-                  <p>{(weatherData.visibility)/1000}km</p>
+                  <h3 >Visibility: </h3>
+                  <p class="mainFlexP">{(weatherData.visibility)/1000}km</p>
               </div>
               <div id="mainSun" className='mFlex'>
                   <h3>Sunrise/Sunset: </h3>
-                  <p> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
+                  <p class="mainFlexP"> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
               </div>
             </div>
             </div> )
         }
         </button>
         </div>
+        <h2>ⓘ Pay Attention While Piloting</h2>
         <div className="back_next_buttons">
-        {hour>4 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleBackHours}> Back </button>) : (<> </>)}
-        {hour<24 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleNextHours}> Next </button>) : (<> </>)}
+        {hour>4 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleBackHours}> Back </button>) : (<p> </p>)}
+        {hour<24 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleNextHours}> Next </button>) : (<p> </p>)}
         </div>
+        
         {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
         </>

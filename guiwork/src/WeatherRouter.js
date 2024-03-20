@@ -23,7 +23,6 @@ const WeatherRouter = createBrowserRouter([
             <Link to="HelpPage">Help</Link>
           </div>
         </div>
-        <h2>Pay Attention While Piloting</h2>
         </div>
       </div>
     ),
