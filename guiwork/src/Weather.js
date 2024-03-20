@@ -5,6 +5,13 @@ import Hourly from './Hourly';
 
     
 const Weather = () => {
+    const [isTurbulence, setIsTurbulence] = useState(false);
+    const [city, setCity] = useState('');
+    const [hour,setHour] = useState(4);
+    const [submittedCity,setSubmittedCity]=useState('');
+    const [mainMoreInfo,setMainMoreInfo] = useState(false)
+    const [weatherData, setWeatherData] = useState(null);
+
     const fetchWeatherData = async () => {
         try {
             // Get user's current position
@@ -23,13 +30,10 @@ const Weather = () => {
     };
 
 
-    const [city, setCity] = useState('');
-    const [hour,setHour] = useState(4);
-    const [submittedCity,setSubmittedCity]=useState('');
-    const [mainMoreInfo,setMainMoreInfo] = useState(false)
-    const [weatherData, setWeatherData] = useState(null);
 
-    useEffect(() => {fetchWeatherData();},[]);
+    useEffect(() => {
+        fetchWeatherData();
+        },[]);
     
      // Empty dependency array to run only once on component mount
 
@@ -89,6 +93,14 @@ const Weather = () => {
         setHour(hour-4);
     }
 
+    useEffect(() => {
+        if (weatherData && weatherData.wind && weatherData.wind.speed > 40) {
+            setIsTurbulence(true);
+        } else {
+            setIsTurbulence(false);
+        }
+    }, [weatherData]);
+
 
 
 
@@ -131,10 +143,18 @@ const Weather = () => {
             </div>
             <hr id="mainSeperate"></hr>
             <div id="mainOtherContent">
-              <div id="mainWind" className='mFlex'>
-                  <h3> Wind: </h3> 
-                  <p class="mainFlexP"> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
-              </div>
+                <div id="mainWind" className='mFlex'>
+                    <h3> Wind: </h3> 
+                    {isTurbulence ? (
+                        <p class="mainFlexP" style={{ color: 'red' }}>
+                            Turbulence Warning: Wind speed is over 40 m/s! - {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}
+                        </p>
+                    ) : (
+                        <p class="mainFlexP">
+                            {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}
+                        </p>
+                    )}
+                </div>
               <div id="mainPressure" className='mFlex'>
                   <h3>Pressure: </h3>
                   <p class="mainFlexP">{weatherData.main.pressure} hpa</p>
