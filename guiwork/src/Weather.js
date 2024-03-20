@@ -126,7 +126,7 @@ const Weather = () => {
                   <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
                 </div>
               <div id="mainTime" >
-                  <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+              <p class="mainFlexP">{calcTime(weatherData.dt,weatherData.timezone)} </p>
               </div>
             </div>
             <hr id="mainSeperate"></hr>
@@ -170,7 +170,7 @@ const Weather = () => {
                   <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
                 </div>
               <div id="mainTime" >
-                  <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
+                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
               </div>
             </div>
             <hr id="mainSeperate"></hr>

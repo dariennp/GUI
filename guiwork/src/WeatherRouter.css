@@ -22,6 +22,10 @@
   --primary-bar-color: #dcdcdc;
 }
 
+h3{
+  font-size: 1.3em;
+}
+
 #mainSeperate{
   border-width:5px;
   border-radius: 10px;
