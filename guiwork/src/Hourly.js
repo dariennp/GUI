@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import windLight from "./wind.png";
+import windDark from "./windDark.png";
+import visibilityLight from "./visibility.png";
+import visibilityDark from "./visibilityDark.png";
 
-const Hourly = ({ city, hour, calcWindDir, calcTime }) => {
+
+
+const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
     const [weatherData, setWeatherData] = useState(null);
     const [moreInfo, setMoreInfo] = useState(false);
     const [moreInfoHour, setMoreInfoHour] = useState(null);
@@ -27,22 +33,31 @@ const Hourly = ({ city, hour, calcWindDir, calcTime }) => {
         setMoreInfoHour(i + (hour - 4));
     };
 
+    
     return (
         <div className="hourly_container">
             {weatherData && !moreInfo ? (
                 <>
                     {weatherData.list.slice(hour - 4, hour).map((item, i) => (
                         <button className={`hourly-button`} onClick={() => handleMoreInfo(i)} key={i}>
-                            <p>{calcTime(item.dt, weatherData.city.timezone)}</p>
-                            <p>{Math.round(item.main.temp)}°C</p>
-                            <img
-                                className="hourly_icon"
-                                id="weather-icon"
-                                src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                                alt="weather icon"
-                            />
-                            <p>{Math.round(item.wind.speed)}m/s</p>
-                            <p>{item.visibility / 1000}km</p>
+                            <p className="hourly-time">{calcTime(item.dt, weatherData.city.timezone)}</p>
+                            <div className="flex-item1">
+                                <img
+                                    className="hourly_icon"
+                                    id="weather-icon"
+                                    src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                                    alt="weather icon"
+                                />
+                                <p>{Math.round(item.main.temp)}°C</p>
+                            </div>
+                            <div className="flex-item">
+                                <img className="wind_icon" src={windLight}/>
+                                <p>{Math.round(item.wind.speed)}m/s</p>
+                            </div>
+                            <div className="flex-item">
+                                <img className="visibility_icon" src={visibilityLight}/>
+                                <p>{item.visibility / 1000}km</p>
+                            </div>                           
                         </button>
                     ))}
                 </>
