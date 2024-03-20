@@ -97,14 +97,14 @@ const Weather = () => {
     return (
         <div id="mainBoxWeather">
         <div className="header">
-        <form id="weatherForm" onSubmit={handleSubmit}>
-        <input
-        type="text"
-        placeholder="Enter city name"
-        value={city}
-        onChange={handleInputChange}
-        />
-        <button className="opposite_buttons" id="submitButton" type="submit">Get Weather</button>
+            <form id="weatherForm" onSubmit={handleSubmit}>
+            <input className="search_bar"
+            type="text"
+            placeholder="Enter city name"
+            value={city}
+            onChange={handleInputChange}
+            />
+            <button className="opposite_buttons" id="submitButton" type="submit">Get Weather</button>
         </form>
         
         </div>

@@ -290,6 +290,17 @@ the mouse pointer to hover over elements*/
   margin-bottom: 8px;
 }
 
+#weatherForm{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+}
+
+.search_bar{
+  border-radius: 5px;
+}
+
 .back_next_buttons{
   display: flex;
   justify-content: space-between;
