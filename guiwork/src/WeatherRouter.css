@@ -26,7 +26,7 @@ h3{
   font-size: 1.3em;
 }
 
-#mainSeperate{
+#mainSeperate{ /* For the dividing bar in the main weather section*/
   border-width:5px;
   border-radius: 10px;
   border-color: var(--primary-bar-color);
@@ -37,17 +37,17 @@ h3{
   font-size: 2em;
 }
 
-button.main-button {
+button.main-button { /*expands the main weather section*/
   width: 900px;
 }
 
 p{
-  color: var(--primary-text-color);
+  color: var(--primary-text-color); /*allows the weather data text to change colour with the theme*/
 }
 
 
 body {
-  background-color: var(--primary-bg-color);
+  background-color: var(--primary-bg-color); /*sets up the background based on the current theme*/
   color: var(--primary-text-color);
   background-image: var(--primary-background-image);
   background-repeat: no-repeat;
@@ -68,23 +68,23 @@ font-family: Arial, sans-serif;
 }
 
 h1 {
-color: var(--primary-text-color);
+color: var(--primary-text-color); /*changes the Pilot Weather App text colour based on the theme and keeps it in the center of the screen*/
 margin-bottom: 20px;
 font-size: 28px;
 text-align: center;
 }
 
 h2 {
-  font-size: 25px;
-  text-align: center;
+  font-size: 25px; /*centeres the warning message*/
+  text-align: center; 
 }
 
 h3{
-  color: var(--primary-text-color);
+  color: var(--primary-text-color); /*changes colour for main info weather text based on theme*/
 }
 
 a {
-color: var(--primary-text-color);
+color: var(--primary-text-color); /*gives a border for the help and map buttons*/
 text-decoration: none;
 display: inline-block;
 padding: 8px 16px;
@@ -94,12 +94,12 @@ transition: background-color 0.3s, color 0.3s;
 }
 
 a:hover {
-background-color: var(--primary-text-color);
+background-color: var(--primary-text-color); /*changes colour based on theme when the buttons are hovered*/
 color: var(--primary-bg-color);
 }
 
 button {
-padding: 10px 20px;
+padding: 10px 20px; /*gives the get weather and toggle theme buttons a nicer look*/
 background-color: var(--primary-button-color);
 color: var(--primary-bg-color);
 border: none;
@@ -110,10 +110,10 @@ box-shadow: 5px 5px var(--primary-shadow-color);
 }
 
 .opposite_buttons{
-  color: var(--primary-text-color);
+  color: var(--primary-text-color); 
 }
-.buttons{
-  display: flex;
+.buttons{ 
+  display: flex; /*allows the buttons at the bottom of the screen to be aligned horizntally as well as giving them the container around them*/
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
@@ -130,7 +130,7 @@ box-shadow: 5px 5px var(--primary-shadow-color);
 }
 
 button:hover {
-background-color: var(--primary-bg-color);
+background-color: var(--primary-bg-color); /*changes colour based on theme when the buttons are hovered*/
 color: var(--primary-text-color);
 }
 
@@ -150,13 +150,6 @@ background-color: var(--primary-bg-color);
 background-color: var(--primary-bg-color);
 }
 
-.footer {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-top: 20px;
-width: 100%;
-}
 
 @media (max-width: 768px) {
 h1 {
@@ -196,7 +189,7 @@ margin-bottom: 10px;
 the mouse pointer to hover over elements*/
 
 .container {
-  background-color: var(--primary-container-color, 0.8);
+  background-color: var(--primary-container-color, 0.8); /*allows the main weather section to have a nice border container around it*/
   border-radius: 10px; 
   padding: 20px; 
   max-width: 900px; 
@@ -207,7 +200,8 @@ the mouse pointer to hover over elements*/
 }
 
 .container1 {
-  background-color: var(--primary-container-color, 0.8);
+  background-color: var(--primary-container-color, 0.8); /*allows the name of the city section to have a nice smaller border container around it*/
+  border-radius: 10px; 
   border-radius: 10px; 
   padding: 10px; 
   max-width: 200px; 
@@ -220,63 +214,61 @@ the mouse pointer to hover over elements*/
 
 .main-button:hover {
   background-color: var(--primary-hover-color);
-
-
 }
 
 .hourly-button:hover {
   background-color: var(--primary-hover-color);
 }
 
-.hourly-button.expanded {
+.hourly-button.expanded { /*creates a new bigger size when a hourly button is pressed */
   display: flex;
   max-height: 10rem;
   width: 40rem;
 }
-.hourly_col{
-  flex: 1 0 33.33%;
+.hourly_col{ 
+  flex: 1 0 33.33%; /*organises the data when the hourly button is expanded*/
   align-self: center;
 }
 
 
 .hourly_icon{
-  max-height: 2rem;
+  max-height: 2rem; /*makes sure the icon fits in the button*/
 
 }
 
 .hourly_icon1{
-  max-width: 3rem;
+  max-width: 3rem; /*makes sure the icon fits in the button*/
 }
 
 .wind_icon{
-  max-width: 1rem;
+  max-width: 1rem; /*makes sure the icon fits in the button*/
 }
 
 .visibility_icon{
-  max-width: 1rem;
+  max-width: 1rem; /*makes sure the icon fits in the button*/
 }
 
 
 .hourly_container {
-  background-color: var(--primary-container-color, 0.8);
+  background-color: var(--primary-container-color, 0.8); /*allows the hourly weather section to have a nice border container around it*/
   border-radius: 10px; 
   padding: 20px; 
   max-width: 900px; 
   margin: 0 auto;
   transition: background-color 0.5s ease;
   margin-top: 10px;
-  display: flex;
+  display: flex; /*organises the 4 hourly buttons in an even way*/
   justify-content: space-evenly;
 }
 
 .hourly-button{
-  width: 8rem;
+  width: 8rem; /*sets paramenters for the hourly button*/
   max-height: 8.5rem;
 
 }
 
 .hourly-button p{
-  margin-bottom: 0px;
+  margin-bottom: 0px; /*changes the text of the data inside the hourly button*/
   font-size: 15px;
   font-weight: bolder;
 }
@@ -291,37 +283,31 @@ the mouse pointer to hover over elements*/
 }
 
 #weatherForm{
-  display: flex;
+  display: flex; /*allows some space between the input box and get weather button*/
   justify-content: center;
   gap: 1rem;
 
 }
 
 .search_bar{
-  border-radius: 5px;
+  border-radius: 5px; /* makes the input box rounder*/
 }
 
 .back_next_buttons{
-  display: flex;
+  display: flex; /*organises the next and back buttons that change colour with the theme*/
   justify-content: space-between;
   margin: 0rem;
   color: var(--primary-text-color);
 }
 
-.flex-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .flex-item {
-  display: flex;
+  display: flex; /*organises the data in the hourly buttons*/
   align-items: center;
   justify-content: space-evenly;
 }
 
 .flex-item1 {
-  display: flex;
+  display: flex; /*organises the data in the hourly buttons*/
   justify-content: space-evenly;
   align-items: center;
 
