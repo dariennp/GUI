@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
   
-function LeafletMap() {
+function LeafletMap() { // This is the weather map using leaflet/openweathermaps 1.0
     const apiKey = "9bcd9188d56277f0f8720256e18549b3";
     // Initialize mode with one of the modes, for example, "temp_new"
     const [mode, setMode] = useState("temp_new"); 
@@ -25,6 +25,7 @@ function LeafletMap() {
                 />
             </MapContainer>
             <div>
+                {/* Buttons for each mode */}
                 <button className="opposite_buttons" onClick={() => setMode("temp_new")} >
                     Temperature
                 </button>
@@ -45,9 +46,7 @@ function LeafletMap() {
 const Map = () => {
     return (
         <div>
-            
-            <button id="submitButton" type="submit" style={{ display: 'none' }}>Get Weather</button>
-            
+                        
             <div id = "map-container"><LeafletMap></LeafletMap></div>
             
         </div>
