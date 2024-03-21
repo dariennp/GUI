@@ -24,7 +24,7 @@ function LeafletMap() { // This is the weather map using leaflet/openweathermaps
                         attribution='&copy; <a href="https://www.openweathermap.org/">OpenWeatherMap</a>'
                 />
             </MapContainer>
-            <div>
+            <div id="modeButtons">
                 {/* Buttons for each mode */}
                 <button className="opposite_buttons" onClick={() => setMode("temp_new")} >
                     Temperature

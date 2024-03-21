@@ -33,8 +33,10 @@ const WeatherRouter = createBrowserRouter([
       <div style={{ width: '100%' }}>
         
         <Map />
+        <div className="buttons">
         <Link to="/">Weather</Link> 
         <button className="opposite_buttons" onClick={toggleTheme}>Toggle Theme</button>
+        </div>
       </div>
     ),
   },
@@ -43,7 +45,10 @@ const WeatherRouter = createBrowserRouter([
     element: ( //path takes you to hekp page, with link to take you to weather page and button to toggle theme
       <div>
         <HelpPage />
+        <div className="buttons">
         <Link to="/">Weather</Link>
+        <button className="opposite_buttons" onClick={toggleTheme}>Toggle Theme</button>
+        </div>
       </div>
     ),
   },

@@ -7,8 +7,13 @@
     padding: 20px;
     transition: background-color 0.3s, color 0.3s;
     color: var(--primary-text-color);
+    background-color: var(--primary-background-color);
   }
   /* Styling for the main overall help page*/
+
+  #helpList{
+    background-color: var(--primary-bg-color);
+  }
   
   
   .dark-mode .help-page {
@@ -20,6 +25,7 @@
   .content {
     text-align: center;
     color: inherit;
+    background-color: var(--primary-bg-color);
   }
   
   .help-page h2 {
@@ -48,5 +54,7 @@
   .dark-mode .toggle-button {
     background-color: #0056b3;
   }
+
+  
   
   /*This code changes the colours of the page when the theme (dark/light) changes and also add some styling to the button (the mouse can now hover over weather button) etc.*/

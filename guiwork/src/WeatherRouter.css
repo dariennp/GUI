@@ -22,6 +22,22 @@
   --primary-bar-color: #dcdcdc;
 }
 
+.help-page{
+  text-align: center;
+}
+
+#modeButtons {
+  display: flex;
+  justify-content: center;
+  gap:50px;
+}
+
+#helpList li{
+  padding-bottom: 20px;
+  margin-left: 2px;
+  text-align: start;
+}
+
 h3{
   font-size: 1.3em;
 }
@@ -190,7 +206,7 @@ margin-bottom: 10px;
 /*This css file changes the layout of the main weather screen, giving it a more professional feel, such as changing colour during theme (light/dark) change or by allowing 
 the mouse pointer to hover over elements*/
 
-.container {
+.container,#helpList, .help-page {
   background-color: var(--primary-container-color, 0.8); /*allows the main weather section to have a nice border container around it*/
   border-radius: 10px; 
   padding: 20px; 
@@ -213,6 +229,12 @@ the mouse pointer to hover over elements*/
   margin: 0 auto;
   box-shadow: 5px 5px var(--primary-shadow-color);
 }
+
+
+#helpList{
+  background-color: var(--primary-button-color);
+}
+
 
 .main-button:hover {
   background-color: var(--primary-hover-color);
