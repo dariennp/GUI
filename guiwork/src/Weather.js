@@ -13,6 +13,8 @@ const Weather = ({mode}) => {
     const [mainMoreInfo,setMainMoreInfo] = useState(false)
     const [weatherData, setWeatherData] = useState(null);
 
+
+    // Fetch weather data for user's location
     const fetchWeatherData = async () => {
         try {
             // Get user's current position
@@ -22,7 +24,7 @@ const Weather = ({mode}) => {
             const response = await axios.get(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=9bcd9188d56277f0f8720256e18549b3`);
             const city = response.data[0].name;
             setCity(city);
-            if (!submittedCity) {
+            if (!submittedCity) { //if submittedCity is empty then click the submit button, stops bugs related to hourly box
             document.getElementById("submitButton").click();}
         });
         } catch (error) {
@@ -33,9 +35,7 @@ const Weather = ({mode}) => {
 
     useEffect(() => {
         fetchWeatherData();
-        },[]);
-    
-     // Empty dependency array to run only once on component mount
+        },[]);  // Empty dependency array to run only once on component mount
 
     const fetchData = async () => {
         try {
@@ -48,10 +48,12 @@ const Weather = ({mode}) => {
         }
     };      
 
+    //Close or open more info for current weather box
     const handleMainMoreInfo = (e) => {
         setMainMoreInfo(!mainMoreInfo);
     }
 
+    //Converts wind degree to Compass directions
     const calcWindDir = (degrees) => {
         if (degrees>340 || degrees<=20 ){return "N"}
         else if  (degrees>20 && degrees <=60 ) {return "NE"}
@@ -65,31 +67,39 @@ const Weather = ({mode}) => {
 
     }
 
+    //Calculate the local time for a location based on the GMT time and the location's timezone
     const calcTime = (time,timezone) => {
-        const accountedTime=(time+timezone)*1000
+        const accountedTime=(time+timezone)*1000 //gives local time
         const dateTime= new Date(accountedTime);
-        const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6);
+        const dateTimeFormatted=dateTime.toISOString().replace('T', ' ').substr(10, 6); //Format String to only show HH:MM
         return dateTimeFormatted;
     }
 
+    //set City state to search box
     const handleInputChange = (e) => {
         setCity(e.target.value);
     };
 
+    //set submitted city to city in search box when form is submitted
     const handleSubmit = (e) => {
         e.preventDefault();
         fetchData();
         setSubmittedCity(city);
     };
 
+
+    //increase the hours shown to the next 4 hours after the current latest hour shown
     const handleNextHours = (e) => {
         setHour(hour+4);
     }
 
+     //decrease the hours shown to the previous 4 hours before the current earliest hour shown
     const handleBackHours = (e) => {
         setHour(hour-4);
     }
 
+
+    //Both use effect functions set the states for these when the current weather data meets the conditions
     useEffect(() => {
         if (weatherData && weatherData.wind && weatherData.wind.speed > 7) {
             setIsTurbulence(true);
@@ -107,8 +117,7 @@ const Weather = ({mode}) => {
     }, [weatherData]);
 
 
-    // Here, relevant weather data is displayed by using the weather data handed by the api, 
-    // sunset/sunrise times utilise calcSunTime function to convert timestamp to HH:MM 
+    // Here, relevant weather data is displayed by using the weather data handed by the api.
     return (
         <div id="mainBoxWeather">
         <div className="header">
@@ -126,6 +135,7 @@ const Weather = ({mode}) => {
         {weatherData ? (
         <>
         <h2 className="container1">{weatherData.name}</h2>
+        {/* Current weather data */}
         <div className="container">
         <button className="main-button" onClick={handleMainMoreInfo}>
             <div id="mainFlex">
@@ -156,6 +166,7 @@ const Weather = ({mode}) => {
                 <div id="mainWind" className='mFlex'>
 
                     <h3> Wind: </h3> 
+                    {/* if wind speed>20m/s provide a turbulence warning in red otherwise dont */}
                     {isTurbulence ? (
                         <>
                         <p class="mainFlexP" style={{ color: 'red' }}>
@@ -176,6 +187,7 @@ const Weather = ({mode}) => {
               </div>
 
               <div id="mainVis" className='mFlex'> 
+              {/* If visibility is below 5km present the value in red otherwise in regular text */}
                   <h3>Visibility: </h3>
                   {poorVisibility ? ( 
                     <p class="mainFlexP" style={{color: 'red'}}>{(weatherData.visibility)/1000}km</p>
@@ -184,12 +196,12 @@ const Weather = ({mode}) => {
                   )}
                   
               </div>
-
+                {/* Use calc time to get local time */}
               <div id="mainSun" className='mFlex'>
                   <h3>Sunrise/Sunset: </h3>
                   <p class="mainFlexP"> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
               </div>
-
+            {/*if current weather has been clicked show more info */}
               {mainMoreInfo ? (
                 <>
               <div id="mainCoverage" className='mFlex'>
@@ -201,18 +213,19 @@ const Weather = ({mode}) => {
                   <h3>Humidity :  </h3>
                   <p class="mainFlexP">{weatherData.main.humidity}%</p>
               </div>
-              
+
               </>   ) : (<></>)}
             </div>
             </div>
         </button>
         </div>
         <h2>ⓘ Pay Attention While Piloting</h2>
+        {/* Buttons to scroll between hours, if at the earliest 4 hours, back button does not appear, if at latest 4 hours, next button does not appear */}
         <div className="back_next_buttons">
         {hour>4 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleBackHours}> Back </button>) : (<p> </p>)}
         {hour<24 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleNextHours}> Next </button>) : (<p> </p>)}
         </div>
-        
+        {/*Show hourly box info if current weather hasnt been clicked for more info */}
         {!mainMoreInfo ? (<Hourly mode={mode} city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
         </>

@@ -12,6 +12,8 @@ const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
     const [moreInfo, setMoreInfo] = useState(false);
     const [moreInfoHour, setMoreInfoHour] = useState(null);
 
+
+    //access api data for hourly weather
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -26,17 +28,22 @@ const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
 
         fetchData();
 
-    }, [city]);
+    }, [city]); 
 
+
+    //Open or close more info for specified hour.
     const handleMoreInfo = (i) => {
         setMoreInfo(!moreInfo);
-        setMoreInfoHour(i + (hour - 4));
-    };
+        setMoreInfoHour(i + (hour - 4)); // i is value representing each hour box, first box is 1 etc
+                                        // however its based on the 4 hours shown on screen so 10 hours ahead will be i=2
+    };                                  // this formula alllows for more info to be shown about the correct hour as it takes the latest hour shown, 
+                                        ///sets it to the earliest hour shown and then adds i to get the correct hour.
 
 
 
     return (
         <div className="hourly_container">
+            {/* If weatherdata is not empty and moreinfo has not been selected for an hour render the next 4 hours  */}  
             {weatherData && !moreInfo ? (
                 <>
                     {weatherData.list.slice(hour - 4, hour).map((item, i) => (
@@ -55,11 +62,13 @@ const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
 
                             <div className="flex-item">
                                 <img className="wind_icon" alt="wind" src={windLight}/>
-                                {item.wind.speed>7 ? (<p style={{color: 'red'}}>{Math.round(item.wind.speed)}m/s</p>) : (<p>{Math.round(item.wind.speed)}m/s</p>)}
+                                {/* Give wind speed red colour if above 20m/s */}
+                                {item.wind.speed>6.5 ? (<p style={{color: 'red'}}>{Math.round(item.wind.speed)}m/s</p>) : (<p>{Math.round(item.wind.speed)}m/s</p>)}
                             </div>
 
                             <div className="flex-item">
                                 <img className="visibility_icon" alt="visibility" src={visibilityLight}/>
+                                {/* Give visibillity red colour if below 5km */}
                                 {item.visibility <5000 ? (<p style={{color:'red'}}>{Math.round(item.visibility / 1000)}km</p>) : (<p>{Math.round(item.visibility / 1000)}km</p>)}
                             </div> 
 
@@ -69,9 +78,10 @@ const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
             ) : (
                 <></>
             )}
+            {/* If an hour has been selected to show more info */}
             {weatherData && moreInfo && (
                 <div className="hourlyOtherContent">
-
+                    {/* Same info as above just formatted differently */}
                     <button className={`hourly-button expanded`} onClick={() => handleMoreInfo(moreInfoHour)}>
                         <div className="hourly_col">
                             <p>Temperature: {Math.round(weatherData.list[moreInfoHour].main.temp)}°C</p>
@@ -93,7 +103,7 @@ const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
                             />
                             <p>{weatherData.list[moreInfoHour].weather[0].description.toUpperCase()}</p>
                         </div>
-
+                        {/*extra info */}
                         <div className="hourly_col">
                             <p>Cloud Coverage: {weatherData.list[moreInfoHour].clouds.all}%</p>
                             <p>Air Pressure: {weatherData.list[moreInfoHour].main.pressure} hpa</p>
