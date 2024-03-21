@@ -30,7 +30,6 @@ h3{
   border-width:5px;
   border-radius: 10px;
   border-color: var(--primary-bar-color);
-  box-shadow: 0px 0px ;
 }
 
 .mainFlexP{
@@ -91,6 +90,7 @@ padding: 8px 16px;
 border: 2px solid var(--primary-text-color);
 border-radius: 5px;
 transition: background-color 0.3s, color 0.3s;
+font-size: 1.4em;
 }
 
 a:hover {
@@ -111,6 +111,7 @@ box-shadow: 5px 5px var(--primary-shadow-color);
 
 .opposite_buttons{
   color: var(--primary-text-color); 
+  font-size: 1.4em;
 }
 .buttons{ 
   display: flex; /*allows the buttons at the bottom of the screen to be aligned horizntally as well as giving them the container around them*/
@@ -126,6 +127,7 @@ box-shadow: 5px 5px var(--primary-shadow-color);
   margin-top: 0.75rem;
   text-align: center;
   gap: 20px;
+  box-shadow: 5px 5px var(--primary-shadow-color);
 
 }
 
@@ -209,7 +211,7 @@ the mouse pointer to hover over elements*/
   margin-bottom: 0.5rem;
   text-align: center;
   margin: 0 auto;
-
+  box-shadow: 5px 5px var(--primary-shadow-color);
 }
 
 .main-button:hover {

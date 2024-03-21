@@ -7,7 +7,7 @@ import visibilityDark from "./visibilityDark.png";
 
 
 
-const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
+const Hourly = ({ mode,city, hour, calcWindDir, calcTime}) => {
     const [weatherData, setWeatherData] = useState(null);
     const [moreInfo, setMoreInfo] = useState(false);
     const [moreInfoHour, setMoreInfoHour] = useState(null);
@@ -33,7 +33,8 @@ const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
         setMoreInfoHour(i + (hour - 4));
     };
 
-    
+
+
     return (
         <div className="hourly_container">
             {weatherData && !moreInfo ? (
@@ -41,6 +42,7 @@ const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
                     {weatherData.list.slice(hour - 4, hour).map((item, i) => (
                         <button className={`hourly-button`} onClick={() => handleMoreInfo(i)} key={i}>
                             <p className="hourly-time">{calcTime(item.dt, weatherData.city.timezone)}</p>
+
                             <div className="flex-item1">
                                 <img
                                     className="hourly_icon"
@@ -50,14 +52,17 @@ const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
                                 />
                                 <p>{Math.round(item.main.temp)}°C</p>
                             </div>
+
                             <div className="flex-item">
-                                <img className="wind_icon" src={windLight}/>
-                                <p>{Math.round(item.wind.speed)}m/s</p>
+                                <img className="wind_icon" alt="wind" src={windLight}/>
+                                {item.wind.speed>7 ? (<p style={{color: 'red'}}>{Math.round(item.wind.speed)}m/s</p>) : (<p>{Math.round(item.wind.speed)}m/s</p>)}
                             </div>
+
                             <div className="flex-item">
-                                <img className="visibility_icon" src={visibilityLight}/>
-                                <p>{item.visibility / 1000}km</p>
-                            </div>                           
+                                <img className="visibility_icon" alt="visibility" src={visibilityLight}/>
+                                {item.visibility <5000 ? (<p style={{color:'red'}}>{Math.round(item.visibility / 1000)}km</p>) : (<p>{Math.round(item.visibility / 1000)}km</p>)}
+                            </div> 
+
                         </button>
                     ))}
                 </>
@@ -66,12 +71,19 @@ const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
             )}
             {weatherData && moreInfo && (
                 <div className="hourlyOtherContent">
+
                     <button className={`hourly-button expanded`} onClick={() => handleMoreInfo(moreInfoHour)}>
                         <div className="hourly_col">
                             <p>Temperature: {Math.round(weatherData.list[moreInfoHour].main.temp)}°C</p>
-                            <p>Visibility: {weatherData.list[moreInfoHour].visibility / 1000} km</p>
-                            <p>Wind Speed: {Math.round(weatherData.list[moreInfoHour].wind.speed)} m/s</p>
+                            {weatherData.list[moreInfoHour].visibility < 5000 ? (
+                            <p style={{color:'red'}}>Visibility: {weatherData.list[moreInfoHour].visibility / 1000} km</p>) 
+                            : (<p>Visibility: {weatherData.list[moreInfoHour].visibility / 1000} km</p>)}
+
+                            {weatherData.list[moreInfoHour].wind.speed>7 ? (<p style={{color:'red'}}>Wind Speed: {Math.round(weatherData.list[moreInfoHour].wind.speed)} m/s</p>) 
+                             :(<p>Wind Speed: {Math.round(weatherData.list[moreInfoHour].wind.speed)} m/s</p>)}
+
                         </div>
+                        
                         <div className="hourly_col">
                             <p>{calcTime(weatherData.list[moreInfoHour].dt, weatherData.city.timezone)}</p>
                             <img className="hourly_icon1"
@@ -81,11 +93,13 @@ const Hourly = ({ city, hour, calcWindDir, calcTime}) => {
                             />
                             <p>{weatherData.list[moreInfoHour].weather[0].description.toUpperCase()}</p>
                         </div>
+
                         <div className="hourly_col">
                             <p>Cloud Coverage: {weatherData.list[moreInfoHour].clouds.all}%</p>
-                            <p>Wind Direction: {calcWindDir(weatherData.list[moreInfoHour].wind.deg)}</p>
                             <p>Air Pressure: {weatherData.list[moreInfoHour].main.pressure} hpa</p>
+                            <p>Wind Direction: {calcWindDir(weatherData.list[moreInfoHour].wind.deg)}</p>
                         </div>
+
                     </button>
                 </div>
                 )}

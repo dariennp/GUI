@@ -4,8 +4,9 @@ import Hourly from './Hourly';
 
 
     
-const Weather = () => {
+const Weather = ({mode}) => {
     const [isTurbulence, setIsTurbulence] = useState(false);
+    const [poorVisibility,setPoorVisibility] = useState(false);
     const [city, setCity] = useState('');
     const [hour,setHour] = useState(4);
     const [submittedCity,setSubmittedCity]=useState('');
@@ -30,7 +31,6 @@ const Weather = () => {
     };
 
 
-
     useEffect(() => {
         fetchWeatherData();
         },[]);
@@ -48,8 +48,6 @@ const Weather = () => {
         }
     };      
 
-    
-
     const handleMainMoreInfo = (e) => {
         setMainMoreInfo(!mainMoreInfo);
     }
@@ -66,7 +64,6 @@ const Weather = () => {
         else {return "N/A"}
 
     }
-
 
     const calcTime = (time,timezone) => {
         const accountedTime=(time+timezone)*1000
@@ -94,14 +91,20 @@ const Weather = () => {
     }
 
     useEffect(() => {
-        if (weatherData && weatherData.wind && weatherData.wind.speed > 40) {
+        if (weatherData && weatherData.wind && weatherData.wind.speed > 7) {
             setIsTurbulence(true);
         } else {
             setIsTurbulence(false);
         }
     }, [weatherData]);
 
-
+    useEffect(() => {
+        if (weatherData && weatherData.visibility < 5000) {
+            setPoorVisibility(true);
+        } else {
+            setPoorVisibility(false);
+        }
+    }, [weatherData]);
 
 
     // Here, relevant weather data is displayed by using the weather data handed by the api, 
@@ -125,95 +128,83 @@ const Weather = () => {
         <h2 className="container1">{weatherData.name}</h2>
         <div className="container">
         <button className="main-button" onClick={handleMainMoreInfo}>
-        {mainMoreInfo ? (
             <div id="mainFlex">
             <div id="mainTemp" > 
+
                 <div> 
                   <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
                 </div>
+
                 <div>
                   <p class="mainFlexP">{Math.round(weatherData.main.temp)}°C </p>
                 </div>
+
                 <div>
                   <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
                 </div>
+
               <div id="mainTime" >
               <p class="mainFlexP">{calcTime(weatherData.dt,weatherData.timezone)} </p>
               </div>
+
             </div>
+
             <hr id="mainSeperate"></hr>
+
             <div id="mainOtherContent">
+
                 <div id="mainWind" className='mFlex'>
+
                     <h3> Wind: </h3> 
                     {isTurbulence ? (
+                        <>
                         <p class="mainFlexP" style={{ color: 'red' }}>
-                            Turbulence Warning: Wind speed is over 40 m/s! - {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}
+                            Turbulence Warning:- 
                         </p>
+                        <p class="mainFlexP"> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)} </p>
+                        </>
                     ) : (
                         <p class="mainFlexP">
                             {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}
                         </p>
                     )}
+
                 </div>
               <div id="mainPressure" className='mFlex'>
                   <h3>Pressure: </h3>
                   <p class="mainFlexP">{weatherData.main.pressure} hpa</p>
               </div>
+
               <div id="mainVis" className='mFlex'> 
                   <h3>Visibility: </h3>
-                  <p class="mainFlexP">{(weatherData.visibility)/1000}km</p>
+                  {poorVisibility ? ( 
+                    <p class="mainFlexP" style={{color: 'red'}}>{(weatherData.visibility)/1000}km</p>
+                  ): (
+                    <p class="mainFlexP" >{(weatherData.visibility)/1000}km</p>
+                  )}
+                  
               </div>
+
               <div id="mainSun" className='mFlex'>
                   <h3>Sunrise/Sunset: </h3>
                   <p class="mainFlexP"> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
               </div>
+
+              {mainMoreInfo ? (
+                <>
               <div id="mainCoverage" className='mFlex'>
                   <h3>Cloud Coverage: </h3>
                   <p class="mainFlexP"> {weatherData.clouds.all}%</p>
               </div>
+
               <div id="mainHumidity" className='mFlex'>
                   <h3>Humidity :  </h3>
                   <p class="mainFlexP">{weatherData.main.humidity}%</p>
               </div>
+              
+              </>   ) : (<></>)}
             </div>
             </div>
-        ) : (
-            <div id="mainFlex">
-            <div id="mainTemp" > 
-                <div> 
-                  <h3>{weatherData.weather[0].description.toUpperCase()} </h3>
-                </div>
-                <div>
-                  <p class="mainFlexP">{Math.round(weatherData.main.temp)}°C </p>
-                </div>
-                <div>
-                  <img id="weather-icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="weather icon"/>
-                </div>
-              <div id="mainTime" >
-                <h3>{calcTime(weatherData.dt,weatherData.timezone)} </h3>
-              </div>
-            </div>
-            <hr id="mainSeperate"></hr>
-            <div id="mainOtherContent">
-              <div id="mainWind" className='mFlex'>
-                  <h3> Wind: </h3> 
-                  <p class="mainFlexP"> {Math.round(weatherData.wind.speed)}m/s - {calcWindDir(weatherData.wind.deg)}</p>
-              </div>
-              <div id="mainPressure" className='mFlex'>
-                  <h3>Pressure: </h3>
-                  <p class="mainFlexP">{weatherData.main.pressure} hpa</p>
-              </div>
-              <div id="mainVis" className='mFlex'> 
-                  <h3 >Visibility: </h3>
-                  <p class="mainFlexP">{(weatherData.visibility)/1000}km</p>
-              </div>
-              <div id="mainSun" className='mFlex'>
-                  <h3>Sunrise/Sunset: </h3>
-                  <p class="mainFlexP"> {calcTime(weatherData.sys.sunrise,weatherData.timezone)} / {calcTime(weatherData.sys.sunset,weatherData.timezone)}</p> 
-              </div>
-            </div>
-            </div> )
-        }
         </button>
         </div>
         <h2>ⓘ Pay Attention While Piloting</h2>
@@ -222,11 +213,11 @@ const Weather = () => {
         {hour<24 && !mainMoreInfo ? (<button className="opposite_buttons" onClick={handleNextHours}> Next </button>) : (<p> </p>)}
         </div>
         
-        {!mainMoreInfo ? (<Hourly city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
+        {!mainMoreInfo ? (<Hourly mode={mode} city={submittedCity} hour={hour} calcWindDir={calcWindDir} calcTime={calcTime} key={`${submittedCity}-${hour}`}/>) : (<></>)}
 
         </>
         ) : (
-        <p></p>
+        <p>Error</p>
         )}
         </div>
 

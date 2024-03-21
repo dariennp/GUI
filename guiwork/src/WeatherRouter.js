@@ -8,12 +8,12 @@ import './WeatherRouter.css'
 
 const WeatherRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/", //default path, takes you to main weather page
     element: (
       <div>
         <div>
         <h1>Pilot Weather App</h1>
-        <Weather />
+        <Weather/>
         <div className="buttons">
           <div>
             <Link to="Map">Map</Link>
@@ -29,18 +29,18 @@ const WeatherRouter = createBrowserRouter([
   },
   {
     path: "Map",
-    element: (
+    element: ( //path takes you to map page, with link to take you to weather page and button to toggle theme
       <div style={{ width: '100%' }}>
         
         <Map />
-        <Link to="/">Weather</Link>
+        <Link to="/">Weather</Link> 
         <button className="opposite_buttons" onClick={toggleTheme}>Toggle Theme</button>
       </div>
     ),
   },
   {
     path: "HelpPage",
-    element: (
+    element: ( //path takes you to hekp page, with link to take you to weather page and button to toggle theme
       <div>
         <HelpPage />
         <Link to="/">Weather</Link>
@@ -55,7 +55,6 @@ function toggleTheme() {
   const currentTheme = root.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   root.setAttribute("data-theme", newTheme);
-
   // Toggle between light and dark background classes
   const body = document.body;
   body.classList.toggle("light-background", newTheme === "light");
