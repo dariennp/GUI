@@ -1,0 +1,7 @@
+Instructions
+
+first make sure you are in the guiwork directory. you might be in GUI, and you can't do npm start from there. So if you are, do cd guiwork.
+
+Install react-scripts (npm install react-scripts)
+
+Then start. (npm start)
