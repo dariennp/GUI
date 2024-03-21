@@ -314,7 +314,9 @@ the mouse pointer to hover over elements*/
 }
 
 .search_bar{
-  border-radius: 5px; /* makes the input box rounder*/
+  border-radius: 15px; /* makes the input box rounder*/
+  font-size: 1.4em;
+  box-shadow: 5px 5px var(--primary-shadow-color);
 }
 
 .back_next_buttons{
