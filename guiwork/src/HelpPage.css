@@ -12,7 +12,7 @@
   /* Styling for the main overall help page*/
 
   #helpList{
-    background-color: var(--primary-bg-color);
+    background-color: #0056b3;
   }
   
   
@@ -25,7 +25,6 @@
   .content {
     text-align: center;
     color: inherit;
-    background-color: var(--primary-bg-color);
   }
   
   .help-page h2 {
